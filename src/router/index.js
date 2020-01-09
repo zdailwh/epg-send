@@ -55,6 +55,19 @@ export const constantRoutes = [
     }]
   },
 
+  {
+    path: '/configs',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Configs',
+        component: () => import('@/views/configs/index'),
+        meta: { title: '参数配置', icon: 'table' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
