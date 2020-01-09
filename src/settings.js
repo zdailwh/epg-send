@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Vue Admin Template',
+  title: 'EPG发送系统',
 
   /**
    * @type {boolean} true | false
