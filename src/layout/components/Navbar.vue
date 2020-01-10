@@ -3,7 +3,7 @@
     <h1 class="navbarTitle">EPG 发送系统管理后台</h1>
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <!-- <breadcrumb class="breadcrumb-container" /> -->
+    <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
@@ -29,12 +29,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
-// import Breadcrumb from '@/components/Breadcrumb'
+import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 
 export default {
   components: {
-    // Breadcrumb,
+    Breadcrumb,
     Hamburger
   },
   computed: {
