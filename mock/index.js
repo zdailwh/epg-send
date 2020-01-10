@@ -7,6 +7,7 @@ import configs from './configs'
 import orixmls from './orixmls'
 import providers from './providers'
 import records from './records'
+import results from './results'
 
 const mocks = [
   ...user,
@@ -14,7 +15,8 @@ const mocks = [
   ...configs,
   ...orixmls,
   ...providers,
-  ...records
+  ...records,
+  ...results
 ]
 
 // for front mock

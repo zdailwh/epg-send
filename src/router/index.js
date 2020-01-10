@@ -107,6 +107,19 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/results',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Results',
+        component: () => import('@/views/results/index'),
+        meta: { title: 'EPG发送状态', icon: 'table' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
