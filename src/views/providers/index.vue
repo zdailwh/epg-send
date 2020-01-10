@@ -29,9 +29,12 @@
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button @click="resetForm('formSearch')">重置</el-button>
-        <el-button type="primary" icon="el-icon-plus" @click="$refs.add.dialogVisible = true">创建数据提供机构</el-button>
       </el-form-item>
     </el-form>
+
+    <div class="createWrap">
+      <el-button type="primary" icon="el-icon-plus" @click="$refs.add.dialogVisible = true">创建数据提供机构</el-button>
+    </div>
 
     <el-table
       v-loading="listLoading"
