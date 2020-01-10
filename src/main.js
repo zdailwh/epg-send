@@ -6,6 +6,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import '@/styles/index.scss' // global css
+import '@/styles/base.css' // global css
 
 import App from './App'
 import store from './store'
@@ -23,9 +24,9 @@ import '@/permission' // permission control
  * please remove it before going online! ! !
  */
 import { mockXHR } from '../mock'
-// if (process.env.NODE_ENV === 'production') {
-mockXHR()
-// }
+if (process.env.NODE_ENV === 'development') {
+  mockXHR()
+}
 
 // set ElementUI lang to EN
 Vue.use(ElementUI)
