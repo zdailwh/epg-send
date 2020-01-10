@@ -143,10 +143,10 @@ export default {
       if (this.formSearch.status !== '') {
         params.status = this.formSearch.status
       }
-      if (this.formSearch.create_time_range !== '') {
+      if (this.formSearch.create_time_range.length) {
         params.create_time_range = this.formSearch.create_time_range
       }
-      if (this.formSearch.update_time_range !== '') {
+      if (this.formSearch.update_time_range.length) {
         params.update_time_range = this.formSearch.update_time_range
       }
       this.listLoading = true
