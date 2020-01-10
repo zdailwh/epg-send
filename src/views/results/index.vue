@@ -187,7 +187,6 @@ export default {
       }
       this.listLoading = true
       if (this.parentid) {
-        console.log(this.parentid)
         getResultsOfRecordList(params).then(response => {
           this.list = response.data.items || []
           this.listTotal = response.data.total || 0
