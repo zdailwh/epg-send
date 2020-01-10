@@ -6,13 +6,15 @@ import authentication from './authentication'
 import configs from './configs'
 import orixmls from './orixmls'
 import providers from './providers'
+import records from './records'
 
 const mocks = [
   ...user,
   ...authentication,
   ...configs,
   ...orixmls,
-  ...providers
+  ...providers,
+  ...records
 ]
 
 // for front mock
