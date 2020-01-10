@@ -81,6 +81,19 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/providers',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Providers',
+        component: () => import('@/views/providers/index'),
+        meta: { title: '数据提供机构', icon: 'table' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

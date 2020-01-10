@@ -29,7 +29,7 @@
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="fetchData">查询</el-button>
         <el-button @click="resetForm('formSearch')">重置</el-button>
-        <el-button type="primary" icon="el-icon-plus" @click="$refs.add.dialogVisible = true">创建原文件</el-button>
+        <el-button type="primary" icon="el-icon-plus" @click="$refs.add.dialogVisible = true">创建数据提供机构</el-button>
       </el-form-item>
     </el-form>
 
@@ -46,34 +46,24 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="原文件名称">
+      <el-table-column label="机构简称">
         <template slot-scope="scope">
-          {{ scope.row.name }}
+          {{ scope.row.abbrname }}
         </template>
       </el-table-column>
-      <el-table-column label="原文件路径">
+      <el-table-column label="机构代码">
         <template slot-scope="scope">
-          {{ scope.row.xmlpath }}
+          {{ scope.row.code }}
         </template>
       </el-table-column>
-      <el-table-column label="原文件系统创建时间">
+      <el-table-column label="AppKey">
         <template slot-scope="scope">
-          {{ scope.row.xmlcreatetime }}
+          {{ scope.row.appkey }}
         </template>
       </el-table-column>
-      <el-table-column label="文件大小">
+      <el-table-column label="AppSecret">
         <template slot-scope="scope">
-          {{ scope.row.fliesize }}
-        </template>
-      </el-table-column>
-      <el-table-column label="拆分完成时间">
-        <template slot-scope="scope">
-          {{ scope.row.finishtime }}
-        </template>
-      </el-table-column>
-      <el-table-column label="日志">
-        <template slot-scope="scope">
-          {{ scope.row.log }}
+          {{ scope.row.appsecret }}
         </template>
       </el-table-column>
       <el-table-column label="状态">
@@ -91,10 +81,14 @@
           {{ scope.row.update_time }}
         </template>
       </el-table-column>
-      <!-- <el-table-column class-name="status-col" label="操作" width="110" align="center">
+      <el-table-column class-name="status-col" label="操作" width="110" align="center">
         <template slot-scope="scope">
+          <div class="handler-wrap">
+            <el-button v-if="scope.row.status !== 1" type="success" size="mini" @click="doActive(scope.$index, scope.row)">激活</el-button>
+            <el-button v-if="scope.row.status !== 0" type="danger" size="mini" @click="doFrozen(scope.$index, scope.row)">冻结</el-button>
+          </div>
         </template>
-      </el-table-column> -->
+      </el-table-column>
     </el-table>
     <div class="pageContainer">
       <el-pagination
@@ -112,8 +106,8 @@
 </template>
 
 <script>
-import { getOrixmlsList } from '@/api/orixmls'
-import Additem from './Addorixml'
+import { getProvidersList, providerActive, providerFrozen } from '@/api/providers'
+import Additem from './Addprovider'
 
 export default {
   components: { Additem },
@@ -130,12 +124,9 @@ export default {
         update_time_range: []
       },
       statusArr: [
-        { label: '待拆分', value: 0 },
-        { label: '正在拆分', value: 1 },
-        { label: '拆分成功', value: 2 },
-        { label: '部分拆分成功', value: 3 },
-        { label: '提交失败', value: 4 },
-        { label: '拆分失败', value: 5 }
+        { label: '冻结', value: 0 },
+        { label: '激活', value: 1 },
+        { label: '暂停', value: 2 }
       ]
     }
   },
@@ -159,7 +150,7 @@ export default {
         params.update_time_range = this.formSearch.update_time_range
       }
       this.listLoading = true
-      getOrixmlsList(params).then(response => {
+      getProvidersList(params).then(response => {
         this.list = response.data.items || []
         this.listTotal = response.data.total || 0
         this.listLoading = false
@@ -170,6 +161,42 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    doActive(index, row) {
+      if (this.listLoading) return
+      var params = {
+        id: row.id
+      }
+      this.listLoading = true
+      providerActive(params).then(response => {
+        this.list[index] = response.data
+        this.$message({
+          message: '激活成功！',
+          type: 'success'
+        })
+        this.listLoading = false
+      }).catch(error => {
+        console.log(error)
+        this.listLoading = false
+      })
+    },
+    doFrozen(index, row) {
+      if (this.listLoading) return
+      var params = {
+        id: row.id
+      }
+      this.listLoading = true
+      providerFrozen(params).then(response => {
+        this.list[index] = response.data
+        this.$message({
+          message: '冻结成功！',
+          type: 'success'
+        })
+        this.listLoading = false
+      }).catch(error => {
+        console.log(error)
+        this.listLoading = false
+      })
     }
   }
 }

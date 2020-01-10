@@ -5,12 +5,14 @@ import user from './user'
 import authentication from './authentication'
 import configs from './configs'
 import orixmls from './orixmls'
+import providers from './providers'
 
 const mocks = [
   ...user,
   ...authentication,
   ...configs,
-  ...orixmls
+  ...orixmls,
+  ...providers
 ]
 
 // for front mock
