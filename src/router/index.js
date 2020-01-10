@@ -75,19 +75,6 @@ export const constantRoutes = [
   },
 
   {
-    path: '/orixmls',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Orixmls',
-        component: () => import('@/views/orixmls/index'),
-        meta: { title: 'EPG原文件', icon: 'table' }
-      }
-    ]
-  },
-
-  {
     path: '/providers',
     component: Layout,
     children: [
@@ -101,54 +88,50 @@ export const constantRoutes = [
   },
 
   {
-    path: '/records',
+    path: '/orixmls',
     component: Layout,
     children: [
       {
         path: 'index',
-        name: 'Records',
-        component: () => import('@/views/records/index'),
-        meta: { title: 'EPG发送记录', icon: 'table' }
+        name: 'Orixmls',
+        component: () => import('@/views/orixmls/index'),
+        meta: { title: 'EPG原文件', icon: 'table' }
       }
     ]
   },
 
   {
-    path: '/records/:recordid',
+    path: '/epg',
     component: Layout,
+    meta: { title: 'EPG发送文件管理', icon: 'table' },
     children: [
       {
-        path: 'results',
-        name: 'ResultsOfRecords',
-        component: () => import('@/views/results/index'),
-        meta: { title: '查看发送结果', icon: 'table' }
-      }
-    ],
-    hidden: true
-  },
-
-  {
-    path: '/results',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Results',
-        component: () => import('@/views/results/index'),
-        meta: { title: 'EPG发送状态', icon: 'table' }
-      }
-    ]
-  },
-
-  {
-    path: '/splitxmls',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
+        path: 'splitxmls',
         name: 'Splitxmls',
         component: () => import('@/views/splitxmls/index'),
         meta: { title: 'EPG拆分文件', icon: 'table' }
+      },
+
+      {
+        path: 'records',
+        name: 'Records',
+        component: () => import('@/views/records/index'),
+        meta: { title: 'EPG发送记录', icon: 'table' }
+      },
+
+      {
+        path: 'results',
+        name: 'Results',
+        component: () => import('@/views/results/index'),
+        meta: { title: 'EPG发送状态', icon: 'table' }
+      },
+
+      {
+        path: 'records/:recordid/results',
+        name: 'ResultsOfRecords',
+        component: () => import('@/views/results/index'),
+        meta: { title: '查看发送结果', icon: 'table' },
+        hidden: true
       }
     ]
   },
