@@ -1,5 +1,6 @@
 <template>
   <div class="navbar">
+    <h1 class="navbarTitle">EPG 发送系统管理后台</h1>
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <!-- <breadcrumb class="breadcrumb-container" /> -->
@@ -63,6 +64,7 @@ export default {
   overflow: hidden;
   position: relative;
   background: #fff;
+  margin-top: 30px;
   // box-shadow: 0 1px 4px rgba(0,21,41,.08);
 
   .hamburger-container {
@@ -132,6 +134,15 @@ export default {
         }
       }
     }
+  }
+  .navbarTitle {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 30px;
+    margin: 0;
+    line-height: 1;
   }
 }
 .tab-container {
