@@ -8,6 +8,7 @@ import orixmls from './orixmls'
 import providers from './providers'
 import records from './records'
 import results from './results'
+import splitxmls from './splitxmls'
 
 const mocks = [
   ...user,
@@ -16,7 +17,8 @@ const mocks = [
   ...orixmls,
   ...providers,
   ...records,
-  ...results
+  ...results,
+  ...splitxmls
 ]
 
 // for front mock
