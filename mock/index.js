@@ -4,11 +4,13 @@ import { param2Obj } from '../src/utils'
 import user from './user'
 import authentication from './authentication'
 import configs from './configs'
+import orixmls from './orixmls'
 
 const mocks = [
   ...user,
   ...authentication,
-  ...configs
+  ...configs,
+  ...orixmls
 ]
 
 // for front mock

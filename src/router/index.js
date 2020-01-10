@@ -68,6 +68,19 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/orixmls',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Orixmls',
+        component: () => import('@/views/orixmls/index'),
+        meta: { title: 'EPG原文件', icon: 'table' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
