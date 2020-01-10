@@ -108,6 +108,20 @@ export const constantRoutes = [
   },
 
   {
+    path: '/records/:recordid',
+    component: Layout,
+    children: [
+      {
+        path: 'results',
+        name: 'ResultsOfRecords',
+        component: () => import('@/views/results/index'),
+        meta: { title: '查看发送结果', icon: 'table' }
+      }
+    ],
+    hidden: true
+  },
+
+  {
     path: '/results',
     component: Layout,
     children: [

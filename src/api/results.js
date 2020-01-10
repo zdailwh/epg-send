@@ -7,3 +7,11 @@ export function getResultsList(params) {
     params
   })
 }
+
+export function getResultsOfRecordList(params) {
+  return request({
+    url: '/records/' + params.id + '/results',
+    method: 'get',
+    params
+  })
+}

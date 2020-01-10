@@ -131,7 +131,7 @@
 </template>
 
 <script>
-import { getResultsList } from '@/api/results'
+import { getResultsList, getResultsOfRecordList } from '@/api/results'
 
 export default {
   data() {
@@ -153,6 +153,11 @@ export default {
         { label: '查询成功', value: 1 },
         { label: '查询失败', value: 2 }
       ]
+    }
+  },
+  computed: {
+    parentid() {
+      return this.$route.params.recordid || ''
     }
   },
   created() {
@@ -181,14 +186,26 @@ export default {
         params.update_time_range = this.formSearch.update_time_range
       }
       this.listLoading = true
-      getResultsList(params).then(response => {
-        this.list = response.data.items || []
-        this.listTotal = response.data.total || 0
-        this.listLoading = false
-      }).catch(error => {
-        console.log(error)
-        this.listLoading = false
-      })
+      if (this.parentid) {
+        console.log(this.parentid)
+        getResultsOfRecordList(params).then(response => {
+          this.list = response.data.items || []
+          this.listTotal = response.data.total || 0
+          this.listLoading = false
+        }).catch(error => {
+          console.log(error)
+          this.listLoading = false
+        })
+      } else {
+        getResultsList(params).then(response => {
+          this.list = response.data.items || []
+          this.listTotal = response.data.total || 0
+          this.listLoading = false
+        }).catch(error => {
+          console.log(error)
+          this.listLoading = false
+        })
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()

@@ -124,6 +124,9 @@
         <template slot-scope="scope">
           <div class="handler-wrap">
             <el-button v-if="scope.row.status !== 1" type="success" size="mini" @click="doResult(scope.$index, scope.row)">查询发送结果</el-button>
+            <router-link :to="'/records/' + scope.row.id + '/results'">
+              查看发送结果
+            </router-link>
           </div>
         </template>
       </el-table-column>

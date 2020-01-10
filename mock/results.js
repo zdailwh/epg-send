@@ -95,5 +95,27 @@ export default [
         'items': pageList
       }
     }
+  },
+  {
+    url: '/records/[0-9]/results',
+    type: 'get',
+    response: config => {
+      const { page = 0, per_page = 20 } = config.query
+      const items = results.items
+
+      var mockList = items
+      const pageList = mockList.filter((item, index) => index < per_page * (page + 1) && index >= per_page * page)
+
+      return {
+        'total': mockList.length,
+        'page': page,
+        'per_page': per_page,
+        'count': pageList.length,
+        'where': {
+        },
+        'path': '/api/admin/ffmpeg/v1/inputs',
+        'items': pageList
+      }
+    }
   }
 ]
