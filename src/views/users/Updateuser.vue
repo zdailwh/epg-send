@@ -27,7 +27,7 @@ export default {
   props: {
     editdata: {
       type: Object,
-      default() {
+      default: function() {
         return {}
       }
     }
@@ -50,10 +50,12 @@ export default {
       }
     }
   },
-  updated() {
-    this.formData.id = this.editdata.id
-    this.formData.username = this.editdata.username
-    this.formData.mobile = this.editdata.mobile
+  watch: {
+    editdata(val) {
+      this.formData.id = val.id
+      this.formData.username = val.username
+      this.formData.mobile = val.mobile
+    }
   },
   methods: {
     onSubmit() {
