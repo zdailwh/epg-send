@@ -101,6 +101,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/heartbeats',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Heartbeats',
+        component: () => import('@/views/heartbeats/index'),
+        meta: { title: '心跳记录', icon: 'table' }
+      }
+    ]
+  },
+
+  {
     path: '/epg',
     component: Layout,
     meta: { title: 'EPG发送文件管理', icon: 'table' },

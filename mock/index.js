@@ -9,6 +9,7 @@ import providers from './providers'
 import records from './records'
 import results from './results'
 import splitxmls from './splitxmls'
+import heartbeats from './heartbeats'
 
 const mocks = [
   ...users,
@@ -18,7 +19,8 @@ const mocks = [
   ...providers,
   ...records,
   ...results,
-  ...splitxmls
+  ...splitxmls,
+  ...heartbeats
 ]
 
 // for front mock
