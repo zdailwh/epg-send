@@ -1,4 +1,6 @@
-const user = {
+import Mock from 'mockjs'
+
+const authentication = {
   'id': 929,
   'class': 'app\\user\\admin\\Authentication',
   'class_name': '登录认证',
@@ -27,13 +29,17 @@ const user = {
   }
 }
 
+const authentications = Mock.mock({
+  'items|30': [authentication]
+})
+
 export default [
   // user login
   {
     url: '/authentications',
     type: 'post',
     response: config => {
-      return user
+      return authentication
     }
   },
 
@@ -43,6 +49,28 @@ export default [
     type: 'delete',
     response: _ => {
       return 'ok'
+    }
+  },
+  {
+    url: '/authentications',
+    type: 'get',
+    response: config => {
+      const { page = 0, per_page = 20 } = config.query
+      const items = authentications.items
+
+      var mockList = items
+      const pageList = mockList.filter((item, index) => index < per_page * (page + 1) && index >= per_page * page)
+
+      return {
+        'total': mockList.length,
+        'page': page,
+        'per_page': per_page,
+        'count': pageList.length,
+        'where': {
+        },
+        'path': '/api/admin/ffmpeg/v1/inputs',
+        'items': pageList
+      }
     }
   }
 ]

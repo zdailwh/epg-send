@@ -136,6 +136,26 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/user',
+    component: Layout,
+    meta: { title: '用户管理', icon: 'user' },
+    children: [
+      {
+        path: 'index',
+        name: 'Users',
+        component: () => import('@/views/users/index'),
+        meta: { title: '用户列表', icon: 'table' }
+      },
+      {
+        path: 'authentications',
+        name: 'Authentications',
+        component: () => import('@/views/users/authentications'),
+        meta: { title: '登录认证', icon: 'table' }
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

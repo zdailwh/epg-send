@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 import { param2Obj } from '../src/utils'
 
-import user from './user'
+import users from './users'
 import authentication from './authentication'
 import configs from './configs'
 import orixmls from './orixmls'
@@ -11,7 +11,7 @@ import results from './results'
 import splitxmls from './splitxmls'
 
 const mocks = [
-  ...user,
+  ...users,
   ...authentication,
   ...configs,
   ...orixmls,

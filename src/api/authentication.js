@@ -5,7 +5,7 @@ export function login(data) {
     url: '/authentications',
     method: 'post',
     data,
-    baseURL: process.env.NODE_ENV === 'production' ? '/api/admin/v1' : '/dev-api/service'
+    baseURL: process.env.NODE_ENV === 'production' ? '/api/admin/v1' : '/dev-api'
   })
 }
 
@@ -13,6 +13,15 @@ export function logout() {
   return request({
     url: '/authentications',
     method: 'delete',
-    baseURL: process.env.NODE_ENV === 'production' ? '/api/admin/v1' : '/dev-api/service'
+    baseURL: process.env.NODE_ENV === 'production' ? '/api/admin/v1' : '/dev-api'
+  })
+}
+
+export function getAuthenticationsList(params) {
+  return request({
+    url: '/authentications',
+    method: 'get',
+    baseURL: process.env.NODE_ENV === 'production' ? '/api/admin/v1' : '/dev-api',
+    params
   })
 }
