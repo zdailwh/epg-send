@@ -13,3 +13,6 @@
   background-color: #EBEEF5;
   z-index: 1;
 }
+.handler-wrap .el-button {
+  margin-left: 10px;
+}
