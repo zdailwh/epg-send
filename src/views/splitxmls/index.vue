@@ -46,12 +46,6 @@
       highlight-current-row
       size="small"
     >
-      <el-table-column type="expand">
-        <template slot-scope="scope">
-          <p>原文件：{{ scope.row.orixml }}</p>
-          <p>发送记录：{{ scope.row.record }}</p>
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.row.id }}
@@ -142,7 +136,13 @@
           {{ scope.row.update_time }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="操作" width="110" align="center">
+      <el-table-column type="expand" label="关联项详情" width="56">
+        <template slot-scope="scope">
+          <p>原文件：{{ scope.row.orixml }}</p>
+          <p>发送记录：{{ scope.row.record }}</p>
+        </template>
+      </el-table-column>
+      <el-table-column class-name="status-col" label="操作" width="150" align="center" fixed="right">
         <template slot-scope="scope">
           <div class="handler-wrap">
             <el-button v-if="scope.row.status !== 1" type="success" size="mini" @click="doManualretry(scope.$index, scope.row)">手动重试发送</el-button>

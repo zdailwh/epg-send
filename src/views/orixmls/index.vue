@@ -94,7 +94,7 @@
           {{ scope.row.update_time }}
         </template>
       </el-table-column>
-      <!-- <el-table-column class-name="status-col" label="操作" width="110" align="center">
+      <!-- <el-table-column class-name="status-col" label="操作" align="center">
         <template slot-scope="scope">
         </template>
       </el-table-column> -->

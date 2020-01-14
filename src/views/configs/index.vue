@@ -89,7 +89,7 @@
           {{ scope.row.update_time }}
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="操作" width="110" align="center">
+      <el-table-column class-name="status-col" label="操作" align="center">
         <template slot-scope="scope">
           <div class="handler-wrap">
             <el-button v-if="scope.row.status === 0" type="success" size="mini" @click="doValid(scope.$index, scope.row)">激活</el-button>

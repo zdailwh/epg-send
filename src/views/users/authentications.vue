@@ -40,11 +40,6 @@
       highlight-current-row
       size="small"
     >
-      <el-table-column type="expand">
-        <template slot-scope="scope">
-          <p>用户：{{ scope.row.user }}</p>
-        </template>
-      </el-table-column>
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.row.id }}
@@ -78,6 +73,11 @@
       <el-table-column label="更新时间">
         <template slot-scope="scope">
           {{ scope.row.update_time }}
+        </template>
+      </el-table-column>
+      <el-table-column type="expand" label="关联项详情" width="56">
+        <template slot-scope="scope">
+          <p>用户：{{ scope.row.user }}</p>
         </template>
       </el-table-column>
     </el-table>
