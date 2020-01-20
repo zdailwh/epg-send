@@ -105,7 +105,7 @@
         <template slot-scope="scope">
           {{ scope.row.update_time }}
         </template>
-      </el-table-column>      
+      </el-table-column>
       <el-table-column type="expand" label="关联项详情" width="56">
         <template slot-scope="scope">
           <p>发送记录：{{ scope.row.record }}</p>
@@ -187,7 +187,7 @@ export default {
       }
       this.listLoading = true
       if (this.parentid) {
-        getResultsOfRecordList(params).then(response => {
+        getResultsOfRecordList({ params: params, parentid: this.parentid }).then(response => {
           this.list = response.data.items || []
           this.listTotal = response.data.total || 0
           this.listLoading = false

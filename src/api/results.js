@@ -8,9 +8,9 @@ export function getResultsList(params) {
   })
 }
 
-export function getResultsOfRecordList(params) {
+export function getResultsOfRecordList({ params, parentid }) {
   return request({
-    url: '/records/' + params.id + '/results',
+    url: '/records/' + parentid + '/results',
     method: 'get',
     params
   })
