@@ -1,6 +1,9 @@
 <template>
   <div class="app-container">
     <el-form ref="formSearch" :inline="true" :model="formSearch" class="demo-form-inline">
+      <el-form-item label="频道ID" prop="channel_id">
+        <el-input v-model="formSearch.channel_id" placeholder="频道ID" />
+      </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="formSearch.status" placeholder="状态">
           <el-option v-for="(item, k) in statusArr" :key="k" :label="item.label" :value="item.value" />
@@ -43,6 +46,11 @@
       <el-table-column align="center" label="ID" width="95">
         <template slot-scope="scope">
           {{ scope.row.id }}
+        </template>
+      </el-table-column>
+      <el-table-column label="数据生成时间">
+        <template slot-scope="scope">
+          {{ scope.row.creationtime }}
         </template>
       </el-table-column>
       <el-table-column label="提交时间">
@@ -93,6 +101,7 @@
       <el-table-column type="expand" label="关联项详情" width="56">
         <template slot-scope="scope">
           <p>代理商：{{ scope.row.provider }}</p>
+          <p>频道：{{ scope.row.channel }}</p>
         </template>
       </el-table-column>
     </el-table>
@@ -122,6 +131,7 @@ export default {
       page: 1,
       per_page: 20,
       formSearch: {
+        channel_id: '',
         status: '',
         create_time_range: [],
         update_time_range: []
@@ -130,7 +140,8 @@ export default {
         { label: '已创建', value: 0 },
         { label: '发送成功', value: 2 },
         { label: '提交失败', value: 3 },
-        { label: '发送失败', value: 4 }
+        { label: '发送失败', value: 4 },
+        { label: '发送错误', value: 5 }
       ]
     }
   },
@@ -143,6 +154,9 @@ export default {
       var params = {
         page: this.page - 1,
         per_page: this.per_page
+      }
+      if (this.formSearch.channel_id !== '') {
+        params.channel_id = this.formSearch.channel_id
       }
       if (this.formSearch.status !== '') {
         params.status = this.formSearch.status

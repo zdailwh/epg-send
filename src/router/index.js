@@ -75,6 +75,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/channels',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Channels',
+        component: () => import('@/views/channels/index'),
+        meta: { title: '频道信息', icon: 'table' }
+      }
+    ]
+  },
+
+  {
     path: '/providers',
     component: Layout,
     children: [

@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
     <el-form ref="formSearch" :inline="true" :model="formSearch" class="demo-form-inline">
+      <el-form-item label="频道编号" prop="channelid">
+        <el-input v-model="formSearch.channelid" placeholder="频道编号" />
+      </el-form-item>
       <el-form-item label="频道名称" prop="channelname">
         <el-input v-model="formSearch.channelname" placeholder="频道名称" />
-      </el-form-item>
-      <el-form-item label="重试次数" prop="retry">
-        <el-input v-model="formSearch.retry" placeholder="重试次数" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="formSearch.status" placeholder="状态">
@@ -38,6 +38,10 @@
       </el-form-item>
     </el-form>
 
+    <div class="createWrap">
+      <el-button type="primary" icon="el-icon-plus" @click="$refs.add.dialogVisible = true">创建频道信息</el-button>
+    </div>
+
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -51,12 +55,7 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
-      <el-table-column label="数据生成时间">
-        <template slot-scope="scope">
-          {{ scope.row.creationtime }}
-        </template>
-      </el-table-column>
-      <el-table-column label="频道ID">
+      <el-table-column label="频道编号">
         <template slot-scope="scope">
           {{ scope.row.channelid }}
         </template>
@@ -64,66 +63,6 @@
       <el-table-column label="频道名称">
         <template slot-scope="scope">
           {{ scope.row.channelname }}
-        </template>
-      </el-table-column>
-      <el-table-column label="频道日期">
-        <template slot-scope="scope">
-          {{ scope.row.programdate }}
-        </template>
-      </el-table-column>
-      <el-table-column label="文件路径">
-        <template slot-scope="scope">
-          {{ scope.row.realpath }}
-        </template>
-      </el-table-column>
-      <el-table-column label="文件扩展名">
-        <template slot-scope="scope">
-          {{ scope.row.ext }}
-        </template>
-      </el-table-column>
-      <el-table-column label="文件大小">
-        <template slot-scope="scope">
-          {{ scope.row.filesize }}
-        </template>
-      </el-table-column>
-      <el-table-column label="文件MD5值">
-        <template slot-scope="scope">
-          {{ scope.row.filemd5 }}
-        </template>
-      </el-table-column>
-      <el-table-column label="压缩文件名称">
-        <template slot-scope="scope">
-          {{ scope.row.cmprsname }}
-        </template>
-      </el-table-column>
-      <el-table-column label="压缩文件路径">
-        <template slot-scope="scope">
-          {{ scope.row.cmprspath }}
-        </template>
-      </el-table-column>
-      <el-table-column label="压缩文件扩展名">
-        <template slot-scope="scope">
-          {{ scope.row.cmprsext }}
-        </template>
-      </el-table-column>
-      <el-table-column label="压缩文件大小">
-        <template slot-scope="scope">
-          {{ scope.row.cmpresize }}
-        </template>
-      </el-table-column>
-      <el-table-column label="完成时间">
-        <template slot-scope="scope">
-          {{ scope.row.finishtime }}
-        </template>
-      </el-table-column>
-      <el-table-column label="重试次数">
-        <template slot-scope="scope">
-          {{ scope.row.retry }}
-        </template>
-      </el-table-column>
-      <el-table-column label="日志">
-        <template slot-scope="scope">
-          {{ scope.row.log }}
         </template>
       </el-table-column>
       <el-table-column label="状态">
@@ -143,14 +82,13 @@
       </el-table-column>
       <el-table-column type="expand" label="关联项详情" width="56">
         <template slot-scope="scope">
-          <p>原文件：{{ scope.row.orixml }}</p>
-          <p>发送记录：{{ scope.row.record }}</p>
+          <p>提供商：{{ scope.row.provider }}</p>
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="操作" width="150" align="center" fixed="right">
+      <el-table-column class-name="status-col" label="操作" align="center">
         <template slot-scope="scope">
           <div class="handler-wrap">
-            <el-button v-if="scope.row.status !== 1" type="success" size="mini" @click="doManualretry(scope.$index, scope.row)">手动重试发送</el-button>
+            <el-button size="mini" @click="edititem = scope.row;$refs.update.dialogVisible = true">编辑</el-button>
           </div>
         </template>
       </el-table-column>
@@ -166,13 +104,18 @@
         @current-change="fetchData"
       />
     </div>
+    <Additem ref="add" @getlist="fetchData" />
+    <Updateitem ref="update" :editdata="edititem" @getlist="fetchData" />
   </div>
 </template>
 
 <script>
-import { getSplitxmlsList, splitxmlManualretry } from '@/api/splitxmls'
+import { getChannelsList } from '@/api/channels'
+import Additem from './Addchannel'
+import Updateitem from './Updatechannel'
 
 export default {
+  components: { Additem, Updateitem },
   data() {
     return {
       list: null,
@@ -181,18 +124,17 @@ export default {
       page: 1,
       per_page: 20,
       formSearch: {
+        channelid: '',
         channelname: '',
-        retry: '',
         status: '',
         create_time_range: [],
         update_time_range: []
       },
       statusArr: [
-        { label: '等待发送', value: 0 },
-        { label: '正在发送', value: 1 },
-        { label: '发送成功', value: 2 },
-        { label: '发送失败', value: 4 }
-      ]
+        { label: '无效', value: 0 },
+        { label: '有效', value: 1 }
+      ],
+      edititem: {}
     }
   },
   created() {
@@ -205,11 +147,11 @@ export default {
         page: this.page - 1,
         per_page: this.per_page
       }
+      if (this.formSearch.channelid !== '') {
+        params.channelid = this.formSearch.channelid
+      }
       if (this.formSearch.channelname !== '') {
         params.channelname = this.formSearch.channelname
-      }
-      if (this.formSearch.retry !== '') {
-        params.retry = this.formSearch.retry
       }
       if (this.formSearch.status !== '') {
         params.status = this.formSearch.status
@@ -221,7 +163,7 @@ export default {
         params.update_time_range = this.formSearch.update_time_range
       }
       this.listLoading = true
-      getSplitxmlsList(params).then(response => {
+      getChannelsList(params).then(response => {
         this.list = response.data.items || []
         this.listTotal = response.data.total || 0
         this.listLoading = false
@@ -232,24 +174,6 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
-    },
-    doManualretry(index, row) {
-      if (this.listLoading) return
-      var params = {
-        id: row.id
-      }
-      this.listLoading = true
-      splitxmlManualretry(params).then(response => {
-        this.list[index] = response.data
-        this.$message({
-          message: '执行成功！',
-          type: 'success'
-        })
-        this.listLoading = false
-      }).catch(error => {
-        console.log(error)
-        this.listLoading = false
-      })
     }
   }
 }

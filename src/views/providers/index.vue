@@ -49,6 +49,11 @@
           {{ scope.row.id }}
         </template>
       </el-table-column>
+      <el-table-column label="机构名称">
+        <template slot-scope="scope">
+          {{ scope.row.name }}
+        </template>
+      </el-table-column>
       <el-table-column label="机构简称">
         <template slot-scope="scope">
           {{ scope.row.abbrname }}

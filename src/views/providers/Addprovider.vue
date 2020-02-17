@@ -7,6 +7,9 @@
   >
     <div class="dialog-body">
       <el-form ref="formData" :model="formData" :rules="rules" label-width="120px">
+        <el-form-item label="机构名称" prop="name">
+          <el-input v-model="formData.name" placeholder="机构名称" />
+        </el-form-item>
         <el-form-item label="机构简称" prop="abbrname">
           <el-input v-model="formData.abbrname" placeholder="包含字母、数字或下划线，如ttfa_01" />
         </el-form-item>
@@ -35,12 +38,16 @@ export default {
       listLoading: false,
       dialogVisible: false,
       formData: {
+        name: '',
         abbrname: '',
         code: '',
         appkey: '',
         appsecret: ''
       },
       rules: {
+        name: [
+          { required: true, message: '请输入机构名称', trigger: 'blur' }
+        ],
         abbrname: [
           { required: true, message: '请输入机构简称', trigger: 'blur' }
         ],
