@@ -103,9 +103,11 @@
       <el-table-column class-name="status-col" label="操作" align="center">
         <template slot-scope="scope">
           <div class="handler-wrap">
-            <router-link :to="'/task/mainThreads/' + scope.row.id + '/mainJobs'">
-              查看jobs
-            </router-link>
+            <el-button type="text" size="mini">
+              <router-link :to="'/task/mainThreads/' + scope.row.id + '/mainJobs'">
+                查看jobs
+              </router-link>
+            </el-button>
           </div>
         </template>
       </el-table-column>

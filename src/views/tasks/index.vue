@@ -15,8 +15,8 @@
             </p>
             <p><span class="cardLabel">运行标识</span>{{ main.flag }}</p>
             <p><span class="cardLabel">任务</span>{{ main.job }}
-              <router-link to="/task/schedule" style="color: #409EFF;">
-                查看jobs调度<i class="el-icon-arrow-right" />
+              <router-link to="/task/schedule">
+                查看任务<i class="el-icon-arrow-right" />
               </router-link>
             </p>
             <p><span class="cardLabel">调度开始时间</span>{{ main.schedule }}</p>
@@ -149,5 +149,8 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
+}
+.bottom {
+  margin-top: 30px;
 }
 </style>

@@ -120,13 +120,15 @@
           <p>代理商：{{ scope.row.provider }}</p>
         </template>
       </el-table-column>
-      <el-table-column class-name="status-col" label="操作" align="center" fixed="right">
+      <el-table-column class-name="status-col" label="操作" align="center" width="120">
         <template slot-scope="scope">
           <div class="handler-wrap">
             <el-button v-if="scope.row.status !== 1" type="success" size="mini" @click="doResult(scope.$index, scope.row)">查询发送结果</el-button>
-            <router-link :to="'/epg/records/' + scope.row.id + '/results'">
-              查看发送结果
-            </router-link>
+            <el-button type="text" size="mini">
+              <router-link :to="'/epg/records/' + scope.row.id + '/results'">
+                查看发送结果
+              </router-link>
+            </el-button>
           </div>
         </template>
       </el-table-column>

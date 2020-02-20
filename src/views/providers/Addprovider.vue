@@ -2,7 +2,7 @@
   <el-dialog
     title="创建数据提供机构"
     :visible.sync="dialogVisible"
-    width="30%"
+    width="50%"
     :before-close="handleClose"
   >
     <div class="dialog-body">
