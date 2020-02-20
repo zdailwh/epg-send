@@ -21,3 +21,15 @@ export function updateChannel(params) {
     params
   })
 }
+export function channelValid(params) {
+  return request({
+    url: '/channels/' + params.id + '/valid',
+    method: 'put'
+  })
+}
+export function channelInvalid(params) {
+  return request({
+    url: '/channels/' + params.id + '/invalid',
+    method: 'put'
+  })
+}

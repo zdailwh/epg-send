@@ -53,6 +53,9 @@ export default {
       providers: []
     }
   },
+  created() {
+    this.getProviders()
+  },
   methods: {
     onSubmit() {
       this.$refs.formData.validate((valid) => {
@@ -88,7 +91,8 @@ export default {
       if (this.listLoading) return
       var params = {
         page: 0,
-        per_page: 20
+        per_page: 20,
+        status: 1
       }
       this.listLoading = true
       getProvidersList(params).then(response => {
@@ -98,7 +102,7 @@ export default {
         console.log(error)
         this.listLoading = false
       })
-    },
+    }
   }
 }
 </script>

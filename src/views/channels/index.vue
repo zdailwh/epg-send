@@ -88,6 +88,8 @@
       <el-table-column class-name="status-col" label="操作" align="center">
         <template slot-scope="scope">
           <div class="handler-wrap">
+            <el-button v-if="scope.row.status !== 1" type="success" size="mini" @click="doValid(scope.$index, scope.row)">激活</el-button>
+            <el-button v-if="scope.row.status !== 0" type="danger" size="mini" @click="doInvalid(scope.$index, scope.row)">冻结</el-button>
             <el-button size="mini" @click="edititem = scope.row;$refs.update.dialogVisible = true">编辑</el-button>
           </div>
         </template>
@@ -110,7 +112,7 @@
 </template>
 
 <script>
-import { getChannelsList } from '@/api/channels'
+import { getChannelsList, channelValid, channelInvalid } from '@/api/channels'
 import Additem from './Addchannel'
 import Updateitem from './Updatechannel'
 
@@ -174,6 +176,42 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    doValid(index, row) {
+      if (this.listLoading) return
+      var params = {
+        id: row.id
+      }
+      this.listLoading = true
+      channelValid(params).then(response => {
+        this.list[index] = response.data
+        this.$message({
+          message: '激活成功！',
+          type: 'success'
+        })
+        this.listLoading = false
+      }).catch(error => {
+        console.log(error)
+        this.listLoading = false
+      })
+    },
+    doInvalid(index, row) {
+      if (this.listLoading) return
+      var params = {
+        id: row.id
+      }
+      this.listLoading = true
+      channelInvalid(params).then(response => {
+        this.list[index] = response.data
+        this.$message({
+          message: '冻结成功！',
+          type: 'success'
+        })
+        this.listLoading = false
+      }).catch(error => {
+        console.log(error)
+        this.listLoading = false
+      })
     }
   }
 }
