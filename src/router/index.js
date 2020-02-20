@@ -182,6 +182,46 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/task',
+    component: Layout,
+    meta: { title: '任务系统管理', icon: 'table' },
+    children: [
+      {
+        path: 'index',
+        name: 'TaskIndex',
+        component: () => import('@/views/tasks/index'),
+        meta: { title: '任务总览', icon: 'table' }
+      },
+      {
+        path: 'mainJobs',
+        name: 'MainJobs',
+        component: () => import('@/views/tasks/mainJobs'),
+        meta: { title: '主任务', icon: 'table' }
+      },
+      {
+        path: 'mainThreads',
+        name: 'MainThreads',
+        component: () => import('@/views/tasks/mainThreads'),
+        meta: { title: '主线程', icon: 'table' }
+      },
+      {
+        path: 'mainThreads/:mainthreadsid/mainJobs',
+        name: 'JobsOfMainThread',
+        component: () => import('@/views/tasks/mainJobs'),
+        meta: { title: '查看jobs', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'schedule',
+        name: 'JobsSchedule',
+        component: () => import('@/views/tasks/mainJobs'),
+        meta: { title: '查看jobs调度', icon: 'table' },
+        hidden: true
+      }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
